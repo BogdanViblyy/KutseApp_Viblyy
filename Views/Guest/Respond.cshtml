@@ -1,36 +1,66 @@
 ﻿@model GuestResponseViewModel
 
-<h2>Анкета на праздник: @Model.HolidayTitle</h2>
+<h2 class="mb-3">Анкета на праздник: @Model.HolidayTitle</h2>
 <p><strong>Дата:</strong> @Model.HolidayDate.ToShortDateString()</p>
 <p><strong>Адрес:</strong> @Model.HolidayAddress</p>
 
-<form asp-action="Respond" method="post">
+<form asp-action="Respond" method="post" id="responseForm" class="mt-4">
     <input type="hidden" asp-for="HolidayId" />
     <input type="hidden" asp-for="HolidayTitle" />
     <input type="hidden" asp-for="HolidayDate" />
     <input type="hidden" asp-for="HolidayAddress" />
 
-    <div>
-        <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" />
-    </div>
-    <div>
-        <label asp-for="LastName"></label>
-        <input asp-for="LastName" />
-    </div>
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" />
-    </div>
-    <div>
-        <label asp-for="Phone"></label>
-        <input asp-for="Phone" />
-    </div>
-    <div>
-        <label>Ты придешь?</label><br />
-        <input type="radio" asp-for="Response" value="Приду" /> Приду
-        <input type="radio" asp-for="Response" value="Еще подумаю" /> Еще подумаю
+    <div class="mb-3">
+        <label class="form-label">Ты придешь?</label><br />
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" asp-for="Response" type="radio" value="Приду" id="willCome" />
+            <label class="form-check-label" for="willCome">Приду</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" asp-for="Response" type="radio" value="Еще подумаю" id="thinking" />
+            <label class="form-check-label" for="thinking">Еще подумаю</label>
+        </div>
+        <span asp-validation-for="Response" class="text-danger"></span>
     </div>
 
-    <button type="submit">Отправить</button>
+    <div id="formFields">
+        <div class="mb-3">
+            <label asp-for="FirstName" class="form-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="LastName" class="form-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Phone" class="form-label"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Отправить</button>
 </form>
+
+@section Scripts {
+    <script>
+        const willComeRadio = document.getElementById("willCome");
+        const thinkingRadio = document.getElementById("thinking");
+        const formFields = document.getElementById("formFields");
+
+        function toggleFields() {
+            formFields.style.display = thinkingRadio.checked ? "none" : "block";
+        }
+
+        willComeRadio?.addEventListener("change", toggleFields);
+        thinkingRadio?.addEventListener("change", toggleFields);
+        window.onload = toggleFields;
+    </script>
+}

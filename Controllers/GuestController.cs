@@ -36,10 +36,10 @@ namespace KutseApp_Viblyy.Controllers;
     [HttpPost]
     public IActionResult Respond(GuestResponseViewModel model)
     {
-        if (!ModelState.IsValid) return View(model);
-
         if (model.Response == "Приду")
         {
+            if (!ModelState.IsValid) return View(model);
+
             var guest = new GuestResponse
             {
                 FirstName = model.FirstName,
@@ -56,11 +56,24 @@ namespace KutseApp_Viblyy.Controllers;
             TempData["GuestEmail"] = model.Email;
             TempData["GuestName"] = model.FirstName;
             TempData["HolidayTitle"] = model.HolidayTitle;
+
             return RedirectToAction("Coming");
         }
+        else if (model.Response == "Еще подумаю")
+        {
+            var holiday = _context.Holidays.Find(model.HolidayId);
+            if (holiday != null)
+            {
+                holiday.ThinkingCount++;
+                _context.SaveChanges();
+            }
 
-        return RedirectToAction("Thinking");
+            return RedirectToAction("Thinking");
+        }
+
+        return View(model);
     }
+
 
     public IActionResult Coming()
     {

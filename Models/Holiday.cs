@@ -16,6 +16,10 @@ namespace KutseApp_Viblyy.Models
 
         public string Address { get; set; }
 
+        public int ThinkingCount { get; set; } = 0; // <-- Новое поле
+
+
+
         // Навигационное свойство
         public ICollection<GuestResponse> Responses { get; set; }
     }

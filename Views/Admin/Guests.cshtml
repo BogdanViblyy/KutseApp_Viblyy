@@ -1,20 +1,46 @@
-﻿<h2>Ответы гостей</h2>
-<table>
-    <tr>
-        <th>Имя</th>
-        <th>Email</th>
-        <th>Праздник</th>
-        <th>Действия</th>
-    </tr>
-    @foreach (var g in Model)
-    {
+﻿<h2>Гости</h2>
+
+<a class="btn btn-success mb-3" asp-action="AddGuest">Добавить гостя</a>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
         <tr>
-            <td>@g.FirstName @g.LastName</td>
-            <td>@g.Email</td>
-            <td>@g.Holiday?.Title</td>
-            <td>
-                <a asp-action="DeleteGuest" asp-route-id="@g.Id">Удалить</a>
-            </td>
+            <th>Имя</th>
+            <th>Email</th>
+            <th>Номер</th>
+            <th>Праздник</th>
+            <th>Действия</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var g in Model)
+        {
+            <tr>
+                <td>@g.FirstName @g.LastName</td>
+                <td>@g.Email</td>
+                <td>@g.Phone</td>
+
+                <td>@g.Holiday?.Title</td>
+               
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-action="EditGuest" asp-route-id="@g.Id">Редактировать</a>
+                    <a class="btn btn-sm btn-danger" asp-action="DeleteGuest" asp-route-id="@g.Id">Удалить</a>
+                    <form asp-action="SendReminder" method="post" asp-controller="Admin" style="display:inline">
+                        <input type="hidden" name="email" value="@g.Email" />
+                        <input type="hidden" name="name" value="@g.FirstName" />
+                        <input type="hidden" name="title" value="@g.Holiday?.Title" />
+                        <button type="submit" class="btn btn-sm btn-primary">Напомнить</button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
 </table>

@@ -1,8 +1,31 @@
 ﻿@model Holiday
-<form method="post">
-    <p>Название: <input asp-for="Title" /></p>
-    <p>Дата: <input asp-for="Date" type="date" /></p>
-    <p>Адрес: <input asp-for="Address" /></p>
-    <p>Описание: <textarea asp-for="Description"></textarea></p>
-    <button type="submit">Сохранить</button>
+
+<h2>Добавить праздник</h2>
+
+<form method="post" class="mt-4">
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Название</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Date" class="form-label">Дата</label>
+        <input asp-for="Date" type="date" class="form-control" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Address" class="form-label">Адрес</label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Описание</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
 </form>

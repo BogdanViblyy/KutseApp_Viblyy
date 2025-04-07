@@ -16,6 +16,9 @@ namespace KutseApp_Viblyy.Models
         [Phone]
         public string Phone { get; set; }
 
+        public bool WillAttend { get; set; }
+
+
         [Required]
         public string Response { get; set; } // "Приду" или "Еще подумаю"
 
