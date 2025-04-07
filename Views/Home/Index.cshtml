@@ -1,0 +1,22 @@
+﻿@model Holiday
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<h2>@ViewBag.Greeting!</h2>
+
+@if (Model != null)
+{
+    <div class="holiday-box">
+        <h3>Праздник месяца: @Model.Title</h3>
+        <p><strong>Дата:</strong> @Model.Date.ToShortDateString()</p>
+        <p><strong>Адрес:</strong> @Model.Address</p>
+        <p>@Model.Description</p>
+
+        <a asp-controller="Guest" asp-action="Respond" asp-route-holidayId="@Model.Id" class="btn btn-primary">Ответить</a>
+    </div>
+}
+else
+{
+    <p>В этом месяце нет запланированных праздников.</p>
+}

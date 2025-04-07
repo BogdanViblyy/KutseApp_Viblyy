@@ -1,0 +1,36 @@
+﻿@model GuestResponseViewModel
+
+<h2>Анкета на праздник: @Model.HolidayTitle</h2>
+<p><strong>Дата:</strong> @Model.HolidayDate.ToShortDateString()</p>
+<p><strong>Адрес:</strong> @Model.HolidayAddress</p>
+
+<form asp-action="Respond" method="post">
+    <input type="hidden" asp-for="HolidayId" />
+    <input type="hidden" asp-for="HolidayTitle" />
+    <input type="hidden" asp-for="HolidayDate" />
+    <input type="hidden" asp-for="HolidayAddress" />
+
+    <div>
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" />
+    </div>
+    <div>
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" />
+    </div>
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+    </div>
+    <div>
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" />
+    </div>
+    <div>
+        <label>Ты придешь?</label><br />
+        <input type="radio" asp-for="Response" value="Приду" /> Приду
+        <input type="radio" asp-for="Response" value="Еще подумаю" /> Еще подумаю
+    </div>
+
+    <button type="submit">Отправить</button>
+</form>

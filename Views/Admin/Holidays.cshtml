@@ -1,0 +1,23 @@
+﻿<h2>Праздники</h2>
+<a asp-action="AddHoliday">Добавить праздник</a>
+
+<table>
+    <tr>
+        <th>Название</th>
+        <th>Дата</th>
+        <th>Адрес</th>
+        <th>Действия</th>
+    </tr>
+    @foreach (var h in Model)
+    {
+        <tr>
+            <td>@h.Title</td>
+            <td>@h.Date.ToShortDateString()</td>
+            <td>@h.Address</td>
+            <td>
+                <a asp-action="EditHoliday" asp-route-id="@h.Id">Редактировать</a> |
+                <a asp-action="DeleteHoliday" asp-route-id="@h.Id">Удалить</a>
+            </td>
+        </tr>
+    }
+</table>
